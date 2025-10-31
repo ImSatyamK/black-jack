@@ -4,6 +4,7 @@ body{
     font-family: Arial, sans-serif;
     background: rgb(89, 89, 89);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
@@ -56,6 +57,7 @@ h1, h2, h3, h4, h5, h6, p {
     font-weight: 900;
     cursor: pointer;
     padding: 5px 10px;
+    /* visibility: hidden; */
 }
 
 #start-btn:hover{
@@ -65,7 +67,7 @@ h1, h2, h3, h4, h5, h6, p {
 #new-card-btn{
     visibility: hidden;
     position: absolute;
-    bottom: 160px;
+    bottom: 230px;
     left: 125px;
     background: goldenrod;
     border: none;
@@ -80,7 +82,7 @@ h1, h2, h3, h4, h5, h6, p {
 #stop-btn{
     visibility: hidden;
     position: absolute;
-    bottom: 160px;
+    bottom: 230px;
     right: 125px;
     background: goldenrod;
     border: none;
@@ -97,19 +99,9 @@ h1, h2, h3, h4, h5, h6, p {
     background: rgb(255, 223, 0);
 }
 
-#your-name{
-    color: white;
-    position: absolute;
-    bottom: 120px;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    letter-spacing: 2px;
-    font-size: x-large;
-    font-weight:600;
-}
-
 #name-input {
     position: absolute;
-    top: 218px;
+    bottom: 240px;
     font-size: x-large;
     font-weight: 600;
     border: 1px solid goldenrod;
@@ -131,18 +123,21 @@ h1, h2, h3, h4, h5, h6, p {
 
 #chips{
     position: absolute;
-    bottom: 80px;
+    bottom: 180px;
     color: rgb(19, 92, 34);
     font-family: 'Courier New', Courier, monospace;
     font-size: 20px;
     background-color: goldenrod;
     padding: 5px 10px;
     border-radius: 3px;
+    visibility: hidden;
 }
 
 #chip-adder{
     position: absolute;
-    bottom: 30px;
+    bottom: 110px;
+    visibility: hidden;
+    
 }
 
 #chip-adder button{
@@ -182,4 +177,46 @@ h1, h2, h3, h4, h5, h6, p {
     left: 148px;
     text-align: center;
     color: white;
+}
+
+#direction{
+    position: absolute;
+    top: 280px;
+    color: white;
+    font-family: 'Courier New', Courier, monospace;
+    font-style: italic;
+    font-size: 18px;
+    z-index: 2;
+    padding: 5px 30px;
+    border-radius: 0 0 5px 5px;
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    visibility: hidden;
+}
+
+#dir-close{
+    background: none;
+    border: none;
+    color: rgb(77, 1, 1);
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#save-btn{
+    position: absolute;
+    bottom: 150px;
+    background: goldenrod;
+    border: none;
+    border-radius: 3px;
+    color: rgb(19, 92, 34);
+    font-size: 18px;
+    padding: 5px 10px;
+    cursor: pointer;
+    visibility: hidden;
+}
+
+#save-btn:hover{
+    background: rgb(255, 223, 0);
 }
