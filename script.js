@@ -1,13 +1,16 @@
-let chips = 0;
+let chips = Number(localStorage.getItem("chips")) || 0;
 let playerName;
 let palyerHand = [];
 let dealerHand = [];
 let playerSum = 0;
 let dealerSum = 0;
 
+let cards = Array(4).fill(['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']).flat();
+
 function startGame(){
     document.getElementById("start-btn").style.visibility = "hidden";
     document.getElementById("ques").style.visibility = "hidden";
+    document.getElementById("chips").textContent = "CHIPS: $" + chips;
     
 
     document.getElementById("name-input").style.visibility = "visible";
@@ -43,14 +46,19 @@ function savePlayer(){
 
     document.getElementById("new-card-btn").style.visibility = "visible";
     document.getElementById("stop-btn").style.visibility = "visible";
+    document.getElementById("exit-btn").style.visibility = "visible";
 
     distCard(2, playerName);
     distCard(2, 'DEALER');
 }
 
 function distCard(noOfCards, recipient){
-    let cards = Array(4).fill(['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']).flat();
-    let show;
+    if (recipient === 'DEALER' && dealerSum > 16){
+        let show = showCards(dealerHand);
+        document.getElementById("dealer-hand").textContent = "DEALER: " + show + " Total : " + String(total(dealerHand, recipient));
+        return;
+    }
+
     for(let i = 0; i < noOfCards; i++){
         let randomIndex = Math.floor(Math.random() * cards.length);
         let card = cards[randomIndex];
@@ -68,14 +76,14 @@ function distCard(noOfCards, recipient){
 
 
     if(recipient === playerName){
-        show = showCards(palyerHand);
+        let show = showCards(palyerHand);
         document.getElementById("player-hand").textContent = playerName + show + " Total : " + String(total(palyerHand, recipient));
     }
     else if(recipient === 'DEALER' && noOfCards === 2){
-        document.getElementById("dealer-hand").textContent = "DEALER: " + dealerHand[0] + 'X' + "Total : " + String(total(dealerHand, recipient));
+        document.getElementById("dealer-hand").textContent = "DEALER: " + dealerHand[0] + ' X '
     }else if(recipient === 'DEALER' && noOfCards === 1){
-        show = showCards(dealerHand);
-        document.getElementById("dealer-hand").textContent = "DEALER: " + show + "Total : " + String(total(dealerHand, recipient));
+        let show = showCards(dealerHand);
+        document.getElementById("dealer-hand").textContent = "DEALER: " + show + " Total : " + String(total(dealerHand, recipient));
     }
 
     
@@ -134,23 +142,40 @@ function stop(){
     }else{
         endGame('compare');
     }
-
 }
 
 function endGame(result){
     if (result === 'player bust'){
         document.getElementById("game-over-text").textContent = "YOU BUST! DEALER WINS!";
+        chips *= 0;
+        document.getElementById("chips").textContent = "CHIPS: $" + chips;
+
     }else if(result === 'player blackjack'){
         document.getElementById("game-over-text").textContent = "BLACKJACK! YOU WIN!";
+        chips *= 2.5;
+        document.getElementById("chips").textContent = "CHIPS: $" + chips;
+
     }else if(result === 'dealer bust'){
         document.getElementById("game-over-text").textContent = "DEALER BUSTS! YOU WIN!";
+        chips *= 2;
+        document.getElementById("chips").textContent = "CHIPS: $" + chips;
+
     }else if(result === 'dealer blackjack'){
         document.getElementById("game-over-text").textContent = "DEALER HAS BLACKJACK! DEALER WINS!";
+        chips *= 0;
+        document.getElementById("chips").textContent = "CHIPS: $" + chips;
+
     }else if(result === 'compare'){
         if(playerSum > dealerSum){
             document.getElementById("game-over-text").textContent = "YOU WIN!";
+            chips *= 2;
+            document.getElementById("chips").textContent = "CHIPS: $" + chips;
+
         }else if(playerSum < dealerSum){
             document.getElementById("game-over-text").textContent = "DEALER WINS!";
+            chips *= 0;
+            document.getElementById("chips").textContent = "CHIPS: $" + chips;
+
         }else{
             document.getElementById("game-over-text").textContent = "IT'S A TIE!";
         }
@@ -168,4 +193,10 @@ function showCards(cards){
         show += ' ' + cards[i]
     }
     return show;
+}
+
+function exit(){
+    localStorage.setItem('chips', chips);
+
+    location.reload();
 }
