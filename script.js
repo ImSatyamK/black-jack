@@ -41,7 +41,7 @@ function distCards(turn, num){
 
     score = calculateScore(hand)
     if (score === 21){
-        endGame()
+        endGame(turn, 'blackjack')
     }
 }
 
@@ -89,13 +89,16 @@ newcardEl.addEventListener('click', () => {
     showCards('player')
     plyerScore = calculateScore(playerHand)
     if(plyerScore > 21){
-        endGame()
+        endGame('dealer', 'bust')
     }
 })
 
 stopEl.addEventListener('click', () => {
+    if (calculateScore(playerHand) > 21){
+        endGame('delear', 'bust')
+        return
+    }
     dealerPlay()
-    endGame()
 })
 
 function dealerPlay(){
@@ -105,30 +108,50 @@ function dealerPlay(){
         dealerScore = calculateScore(dealerHand)
     }
     showCards('dealer')
+    if (dealerScore > 21){
+        console.log(dealerScore)
+        endGame('player', 'bust')
+        return
+    }
+    endGame()
 }
 
-function endGame(){
+function endGame(winner = null, result = null){
+    let gameOverEl = document.getElementById('game-over')
     newcardEl.style.visibility = 'hidden'
     stopEl.style.visibility = 'hidden'
-    plyerScore = calculateScore(playerHand)
-    dealerScore = calculateScore(dealerHand)
-    let gameOverEl = document.getElementById('game-over')
-    if(plyerScore > 21){
-        gameOverEl.textContent = 'You Bust! Dealer Wins!'
-    }
-    else if(dealerScore > 21){
-        gameOverEl.textContent = 'Dealer Busts! You Win!'
-    }
-    else if(plyerScore > dealerScore){
-        gameOverEl.textContent = 'You Win!'
-    }
-    else if(dealerScore > plyerScore){
-        gameOverEl.textContent = 'Dealer Wins!'
-    }
-    else{
-        gameOverEl.textContent = "It's a Tie!"
-    }
     gameOverEl.style.visibility = 'visible'
+    showCards('dealer', true)
+
+    if (winner && result === 'bust'){
+        if(winner === 'player'){
+            gameOverEl.textContent = 'Dealer Busts! You Win!'
+        }
+        else{
+            gameOverEl.textContent = 'You Bust! Dealer Wins!'
+        }
+        return
+    } else if (winner && result === 'blackjack'){
+       if (winner === 'player'){
+            gameOverEl.textContent = 'Blackjack! You Win!'
+       }else{
+            gameOverEl.textContent = 'Dealer has Blackjack! Dealer Wins!'
+       }
+       return
+    } else{
+        plyerScore = calculateScore(playerHand)
+        dealerScore = calculateScore(dealerHand)
+
+        if(plyerScore > dealerScore){
+            gameOverEl.textContent = 'You Win!'
+        }
+        else if(dealerScore > plyerScore){
+            gameOverEl.textContent = 'Dealer Wins!'
+        }
+        else{
+            gameOverEl.textContent = "It's a Tie!"
+        }
+    }
 }
 
 newgameEl.addEventListener('click', () => {
