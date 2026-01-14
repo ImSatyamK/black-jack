@@ -43,7 +43,34 @@ h1, h2, h3, h4, h5, h6, p {
     font-size: 20px;
 }
 
-.btns{
+input[type="text"]{
+    position: absolute;
+    padding: 8px;
+    border: none;
+    border-radius: 3px;
+    background: yellowgreen;
+    font-size: medium;
+    text-align: center;
+    color: white;
+    font-weight: 600;
+}
+
+input::placeholder{
+    color: white;
+    font-weight: 600;
+}
+
+#player-name{
+    top: 210px;
+    width: 200px;
+}
+
+#chips{
+    top: 250px;
+    width: 200px;
+}
+
+button{
     position: absolute;
     background: goldenrod;
     border: none;
@@ -56,7 +83,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 #play-btn{
     position: absolute;
-    top: 290px;
+    bottom: 130px;
     font-weight: 900;
     padding: 5px 20px;
 }
@@ -79,9 +106,21 @@ h1, h2, h3, h4, h5, h6, p {
     padding: 5px 8px;
 }
 
+#chip-display{
+    position: absolute;
+    bottom: 180px;
+    color: rgb(19, 92, 34);
+    font-size: medium;
+    font-weight: 600;
+    background: goldenrod;
+    padding: 5px 24px;
+    border-radius: 3px;
+    visibility: hidden;
+}
+
 #new-game-btn{
     visibility: hidden;
-    bottom: 180px;
+    bottom: 130px;
     font-size: medium;
     font-weight: 900;
     padding: 5px 25px;

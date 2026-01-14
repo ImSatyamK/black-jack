@@ -10,18 +10,38 @@ let gameAreaEl = document.getElementById('game-area')
 let newcardEl = document.getElementById('new-card-btn')
 let stopEl = document.getElementById('stop-btn')
 let newgameEl = document.getElementById('new-game-btn')
+let playerNameEl = document.getElementById('player-name')
+let chipsEl = document.getElementById('chips')
+let chipDisplayEl = document.getElementById('chip-display')
+let playerDisplayEl = document.getElementById('player-display')
+let playerName
+let chips
 
 let playerHand = []
 let dealerHand = []
 
 playEl.addEventListener('click', () => {
+    playerName = document.getElementById('player-name').value
+    chips = parseInt(document.getElementById('chips').value)
+
+    if (playerName.trim().length === 0 || (!chips || chips <= 0)){
+        alert('Please enter your name and valid chips to play!')
+        return
+    }
+
+    playerNameEl.style.visibility = 'hidden'
+    chipsEl.style.visibility = 'hidden'
+
     playEl.style.visibility = 'hidden'
     welcomeEl.style.visibility = 'hidden'
 
+    playerDisplayEl.textContent = `${playerName}: `
     gameAreaEl.style.visibility = 'visible'
     newcardEl.style.visibility = 'visible'
     stopEl.style.visibility = 'visible'
     newgameEl.style.visibility = 'visible'
+    chipDisplayEl.style.visibility = 'visible'
+    chipDisplayEl.textContent = `Chips: ${chips}`
 
     distCards('player', 2)
     distCards('dealer', 2)
@@ -46,10 +66,10 @@ function distCards(turn, num){
 }
 
 function showCards(turn, reveal=true){
-    let handEl = document.getElementById(`${turn}-hand`)
+    let handEl = document.getElementById(`${turn}-display`)
     
     if(turn === 'player'){
-        handEl.textContent = `You: ${playerHand.join(', ')} Total: ${calculateScore(playerHand)}`
+        handEl.textContent = `${playerName}: ${playerHand.join(', ')} Total: ${calculateScore(playerHand)}`
     }
     else{
         if(reveal){
@@ -122,6 +142,11 @@ function endGame(winner = null, result = null){
     stopEl.style.visibility = 'hidden'
     gameOverEl.style.visibility = 'visible'
     showCards('dealer', true)
+    if (winner === 'player'){
+        chipDisplayEl.textContent = `Chips: ${chips * 2}`
+    }else if (winner === 'dealer'){
+        chipDisplayEl.textContent = `Chips: 0`
+    }
 
     if (winner && result === 'bust'){
         if(winner === 'player'){
@@ -144,14 +169,22 @@ function endGame(winner = null, result = null){
 
         if(plyerScore > dealerScore){
             gameOverEl.textContent = 'You Win!'
+            winner = 'player'
         }
         else if(dealerScore > plyerScore){
             gameOverEl.textContent = 'Dealer Wins!'
+            winner = 'dealer'
         }
         else{
             gameOverEl.textContent = "It's a Tie!"
         }
     }
+    if (winner === 'player'){
+        chipDisplayEl.textContent = `Chips: ${chips * 2}`
+    }else if (winner === 'dealer'){
+        chipDisplayEl.textContent = `Chips: 0`
+    }
+
 }
 
 newgameEl.addEventListener('click', () => {
