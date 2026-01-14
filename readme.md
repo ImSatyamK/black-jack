@@ -3,8 +3,10 @@
 A browser-based Blackjack-style card game built using HTML, CSS, and JavaScript.
 The game includes player name input, a chip system, and simple button-based controls.
 
-Live website:
-Try it online: [Black Jack](https://polite-dango-66a9e3.netlify.app/)
+## Live Demo
+<a href="https://polite-dango-66a9e3.netlify.app/" target="_blank" rel="noopener noreferrer">
+  BLACK JACK
+</a>
 
 --------------------------------------------------
 
