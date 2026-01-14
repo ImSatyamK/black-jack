@@ -4,7 +4,7 @@ A browser-based Blackjack-style card game built using HTML, CSS, and JavaScript.
 The game includes player name input, a chip system, and simple button-based controls.
 
 Live website:
-https://polite-dango-66a9e3.netlify.app/
+Try it online: [Black Jack](https://polite-dango-66a9e3.netlify.app/)
 
 --------------------------------------------------
 
@@ -66,10 +66,9 @@ black-jack/
 
 --------------------------------------------------
 
-LICENSE
+📄 LICENSE  
+This project is open-source and available under the MIT License.
 
-All rights reserved.
+---
 
-This project is owned by Satyam Kumar.
-The source code may not be copied, modified, or redistributed without
-explicit permission from the author.
+⭐ Don’t forget to star the repository if you like this project!
